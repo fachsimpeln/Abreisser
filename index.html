@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Abreisser – Abreißzettel mit Bild &amp; QR-Code</title>
+  <meta name="description" content="Abreißzettel mit Bildern, formatiertem Text und QR-Codes gestalten, auf A4 stapeln und direkt aus dem Browser drucken.">
+  <meta name="theme-color" content="#1f6feb">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+</head>
+<body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-left" viewBox="0 0 16 16"><path d="M2 3h12M2 6.5h8M2 10h12M2 13.5h8" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></symbol>
+    <symbol id="i-center" viewBox="0 0 16 16"><path d="M2 3h12M4 6.5h8M2 10h12M4 13.5h8" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></symbol>
+    <symbol id="i-right" viewBox="0 0 16 16"><path d="M2 3h12M6 6.5h8M2 10h12M6 13.5h8" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></symbol>
+    <symbol id="i-justify" viewBox="0 0 16 16"><path d="M2 3h12M2 6.5h12M2 10h12M2 13.5h12" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></symbol>
+    <symbol id="i-print" viewBox="0 0 16 16"><path d="M4.5 6V2h7v4M4.5 11.5h-2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h11a1 1 0 0 1 1 1v3.5a1 1 0 0 1-1 1h-2M4.5 9.5h7V14h-7z" stroke="currentColor" stroke-width="1.3" fill="none" stroke-linejoin="round"/></symbol>
+    <symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.6" fill="none"/><circle cx="9" cy="10" r="2" fill="currentColor"/><path d="m4 18 5-5 4 4 3-3 4 4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linejoin="round"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 16 16"><path d="m6 4 4 4-4 4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-warn" viewBox="0 0 16 16"><path d="M8 1.8 15 14H1z" fill="currentColor"/><path d="M8 6v4M8 11.6v.4" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/></symbol>
+  </svg>
+
+  <header class="appbar">
+    <div class="brand">
+      <img class="brand-mark" src="favicon.svg" alt="" width="26" height="26">
+      <span>Ab<b>reisser</b></span>
+    </div>
+    <div class="appbar-summary" id="summary" aria-live="polite"></div>
+    <div class="seg small lang" role="group" data-i18n-aria="language" aria-label="Sprache">
+      <button type="button" data-lang="de" lang="de" title="Deutsch">DE</button>
+      <button type="button" data-lang="en" lang="en" title="English">EN</button>
+    </div>
+    <button type="button" class="btn primary" data-action="print">
+      <svg class="icon"><use href="#i-print"/></svg> <span data-i18n="print">Drucken</span>
+    </button>
+  </header>
+
+  <div class="workspace">
+    <aside class="editor">
+      <nav class="steps" data-i18n-aria="steps" aria-label="Schritte">
+        <button type="button" class="step" data-step="1"><span class="step-num">1</span><span class="step-label" data-i18n="step1">Hauptteil</span></button>
+        <button type="button" class="step" data-step="2"><span class="step-num">2</span><span class="step-label" data-i18n="step2">Streifen</span></button>
+        <button type="button" class="step" data-step="3"><span class="step-num">3</span><span class="step-label" data-i18n="step3">Seite &amp; Druck</span></button>
+      </nav>
+
+      <div class="panels">
+        <!-- Step 1: main part -->
+        <section class="panel" data-panel="1">
+          <div class="panel-head">
+            <h2 data-i18n="step1">Hauptteil</h2>
+            <p data-i18n="mainIntro">Der Aushang über den Abreißstreifen.</p>
+          </div>
+
+          <label class="switch-row">
+            <span data-i18n="showMain">Hauptteil anzeigen</span>
+            <input type="checkbox" class="switch" data-bind="header.enabled">
+          </label>
+
+          <div class="stack" data-show="header.enabled">
+            <div class="field">
+              <label for="hTitle" data-i18n="title">Titel</label>
+              <input id="hTitle" type="text" maxlength="200" data-i18n-ph="titlePh" placeholder="z. B. Nimm dir, was du brauchst" data-bind="header.title">
+            </div>
+            <div class="field">
+              <label for="hDesc"><span data-i18n="description">Beschreibung</span> <span class="opt" data-i18n="optional">optional</span></label>
+              <textarea id="hDesc" rows="3" maxlength="600" data-bind="header.desc"></textarea>
+            </div>
+            <div class="field">
+              <span class="label" data-i18n="alignment">Ausrichtung</span>
+              <div class="seg" role="group" data-i18n-aria="alignment" aria-label="Ausrichtung">
+                <button type="button" data-set="header.align=left" data-i18n-title="alignLeft" title="Links"><svg class="icon"><use href="#i-left"/></svg></button>
+                <button type="button" data-set="header.align=center" data-i18n-title="alignCenter" title="Zentriert"><svg class="icon"><use href="#i-center"/></svg></button>
+                <button type="button" data-set="header.align=right" data-i18n-title="alignRight" title="Rechts"><svg class="icon"><use href="#i-right"/></svg></button>
+              </div>
+            </div>
+            <div class="field">
+              <span class="label"><span data-i18n="image">Bild</span> <span class="opt" data-i18n="optional">optional</span></span>
+              <div class="drop" data-image="header.image"></div>
+            </div>
+
+            <details class="advanced">
+              <summary><svg class="icon chev"><use href="#i-chevron"/></svg> <span data-i18n="advanced">Erweiterte Optionen</span></summary>
+              <div class="stack">
+                <div class="row2">
+                  <div class="field">
+                    <label for="hHeight" data-i18n="height">Höhe</label>
+                    <div class="unit"><input id="hHeight" type="number" min="10" max="250" data-bind="header.height"><span>mm</span></div>
+                  </div>
+                  <div class="field">
+                    <label for="hImgSize" data-i18n="imageSize">Bildgröße</label>
+                    <div class="unit"><input id="hImgSize" type="number" min="5" max="190" data-bind="header.imageSize"><span>mm</span></div>
+                  </div>
+                  <div class="field">
+                    <label for="hTitleSize" data-i18n="titleSize">Titelgröße</label>
+                    <div class="unit"><input id="hTitleSize" type="number" min="6" max="72" data-bind="header.titleSize"><span>pt</span></div>
+                  </div>
+                  <div class="field">
+                    <label for="hDescSize" data-i18n="descSize">Beschreibungsgröße</label>
+                    <div class="unit"><input id="hDescSize" type="number" min="5" max="40" data-bind="header.descSize"><span>pt</span></div>
+                  </div>
+                </div>
+                <div class="field">
+                  <span class="label" data-i18n="imagePos">Bildposition</span>
+                  <div class="seg" role="group" data-i18n-aria="imagePos" aria-label="Bildposition">
+                    <button type="button" data-set="header.imagePos=left" data-i18n="posLeft">Links</button>
+                    <button type="button" data-set="header.imagePos=top" data-i18n="posTop">Oben</button>
+                    <button type="button" data-set="header.imagePos=right" data-i18n="posRight">Rechts</button>
+                  </div>
+                </div>
+                <label class="switch-row">
+                  <span><span data-i18n="recolor">Weiß auf transparent → schwarz</span><small data-i18n="recolorHelp">Macht weiße Logo-Schrift auf Papier sichtbar</small></span>
+                  <input type="checkbox" class="switch" data-bind="header.imageRecolor">
+                </label>
+                <label class="switch-row">
+                  <span data-i18n="imageBg">Bildhintergrund</span>
+                  <span class="inline">
+                    <input type="color" data-bind="header.imageBg" data-i18n-aria="imageBgColor" aria-label="Farbe des Bildhintergrunds">
+                    <input type="checkbox" class="switch" data-bind="header.imageBgOn">
+                  </span>
+                </label>
+              </div>
+            </details>
+          </div>
+        </section>
+
+        <!-- Step 2: strips -->
+        <section class="panel" data-panel="2">
+          <div class="panel-head">
+            <h2 data-i18n="step2">Streifen</h2>
+            <p data-i18n="stripsIntro">Jeder Streifen: Bild · Text · QR-Code.</p>
+          </div>
+
+          <div class="field">
+            <span class="label" data-i18n="content">Inhalt</span>
+            <div class="seg" role="group" data-i18n-aria="stripMode" aria-label="Streifen-Modus">
+              <button type="button" data-set="strips.mode=same" data-i18n="modeSame">Alle Streifen gleich</button>
+              <button type="button" data-set="strips.mode=individual" data-i18n="modeIndividual">Jeder Streifen anders</button>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="sText" data-i18n="text">Text</label>
+            <div class="editor-box">
+              <div class="toolbar" role="toolbar" data-i18n-aria="formatting" aria-label="Textformatierung">
+                <button type="button" data-wrap="**" data-target="sText" data-i18n-title="boldSel" title="Auswahl fett"><b data-i18n="boldShort">F</b></button>
+                <button type="button" data-wrap="*" data-target="sText" data-i18n-title="italicSel" title="Auswahl kursiv"><i data-i18n="italicShort">K</i></button>
+                <span class="toolbar-sep"></span>
+                <button type="button" data-set="strips.align=left" data-i18n-title="alignLeft" title="Links"><svg class="icon"><use href="#i-left"/></svg></button>
+                <button type="button" data-set="strips.align=center" data-i18n-title="alignCenter" title="Zentriert"><svg class="icon"><use href="#i-center"/></svg></button>
+                <button type="button" data-set="strips.align=right" data-i18n-title="alignRight" title="Rechts"><svg class="icon"><use href="#i-right"/></svg></button>
+                <button type="button" data-set="strips.align=justify" data-i18n-title="alignJustify" title="Blocksatz"><svg class="icon"><use href="#i-justify"/></svg></button>
+              </div>
+              <textarea id="sText" rows="3" maxlength="200" data-bind="strips.text"></textarea>
+            </div>
+            <p class="help" data-i18n-html="formatHelp">Text markieren und <b>F</b> bzw. <i>K</i> drücken, um Teile zu formatieren.</p>
+          </div>
+
+          <div class="field">
+            <label for="sLink"><span data-i18n="qrLink">QR-Code-Link</span> <span class="opt" data-i18n="optional">optional</span></label>
+            <input id="sLink" type="url" placeholder="https://…" data-bind="strips.link">
+            <p class="help" id="qrHelp"></p>
+          </div>
+
+          <div class="field">
+            <span class="label"><span data-i18n="image">Bild</span> <span class="opt" data-i18n="optional">optional</span></span>
+            <div class="drop" data-image="strips.image"></div>
+          </div>
+
+          <div class="field">
+            <label for="sCount" data-i18n="stripsPerRow">Streifen pro Reihe</label>
+            <div class="stepper">
+              <button type="button" data-step-input="sCount" data-delta="-1" data-i18n-aria="fewerStrips" aria-label="Weniger Streifen">−</button>
+              <input id="sCount" type="number" min="1" max="30" data-bind="strips.count">
+              <button type="button" data-step-input="sCount" data-delta="1" data-i18n-aria="moreStrips" aria-label="Mehr Streifen">+</button>
+            </div>
+            <p class="help" id="stripHelp"></p>
+          </div>
+
+          <div class="stack" data-show="strips.mode=individual">
+            <p class="help" data-i18n="fallbackHelp">Leere Felder übernehmen die Werte von oben.</p>
+            <div id="items" class="items"></div>
+          </div>
+
+          <details class="advanced">
+            <summary><svg class="icon chev"><use href="#i-chevron"/></svg> <span data-i18n="advanced">Erweiterte Optionen</span></summary>
+            <div class="stack">
+              <div class="row2">
+                <div class="field">
+                  <label for="sLength" data-i18n="stripLength">Streifenlänge</label>
+                  <div class="unit"><input id="sLength" type="number" min="15" max="200" data-bind="strips.length"><span>mm</span></div>
+                </div>
+                <div class="field">
+                  <label for="sPad" data-i18n="innerPadding">Innenabstand</label>
+                  <div class="unit"><input id="sPad" type="number" min="0" max="10" step="0.5" data-bind="strips.padding"><span>mm</span></div>
+                </div>
+                <div class="field">
+                  <label for="sImgSize" data-i18n="imageLength">Bildlänge</label>
+                  <div class="unit"><input id="sImgSize" type="number" min="2" max="100" data-bind="strips.imageSize"><span>mm</span></div>
+                </div>
+                <div class="field">
+                  <label for="sQr" data-i18n="qrSize">QR-Größe</label>
+                  <div class="unit"><input id="sQr" type="number" min="5" max="60" data-bind="strips.qrSize"><span>mm</span></div>
+                </div>
+                <div class="field">
+                  <label for="sFont" data-i18n="font">Schrift</label>
+                  <select id="sFont" data-bind="strips.font">
+                    <option value="system-ui, sans-serif" data-i18n="fontSans">Serifenlos</option>
+                    <option value="Georgia, serif" data-i18n="fontSerif">Serif</option>
+                    <option value="'Courier New', monospace" data-i18n="fontMono">Monospace</option>
+                    <option value="'Comic Sans MS', 'Comic Neue', cursive" data-i18n="fontHand">Handschrift</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="sSize" data-i18n="fontSize">Schriftgröße</label>
+                  <div class="unit"><input id="sSize" type="number" min="4" max="40" step="0.5" data-bind="strips.fontSize"><span>pt</span></div>
+                </div>
+              </div>
+              <div class="field">
+                <span class="label" data-i18n="readingDir">Leserichtung</span>
+                <div class="seg" role="group" data-i18n-aria="readingDir" aria-label="Leserichtung">
+                  <button type="button" data-set="strips.direction=up" data-i18n="dirUp">Unten → oben</button>
+                  <button type="button" data-set="strips.direction=down" data-i18n="dirDown">Oben → unten</button>
+                </div>
+              </div>
+              <div class="field">
+                <span class="label" data-i18n="wholeText">Ganzer Text</span>
+                <div class="chips">
+                  <label class="chip"><input type="checkbox" data-bind="strips.bold"><b data-i18n="bold">Fett</b></label>
+                  <label class="chip"><input type="checkbox" data-bind="strips.italic"><i data-i18n="italic">Kursiv</i></label>
+                  <label class="chip"><input type="checkbox" data-bind="strips.underline"><u data-i18n="underline">Unterstrichen</u></label>
+                </div>
+              </div>
+              <label class="switch-row">
+                <span><span data-i18n="recolor">Weiß auf transparent → schwarz</span><small data-i18n="recolorHelp">Macht weiße Logo-Schrift auf Papier sichtbar</small></span>
+                <input type="checkbox" class="switch" data-bind="strips.imageRecolor">
+              </label>
+              <label class="switch-row">
+                <span data-i18n="imageBg">Bildhintergrund</span>
+                <span class="inline">
+                  <input type="color" data-bind="strips.imageBg" data-i18n-aria="imageBgColor" aria-label="Farbe des Bildhintergrunds">
+                  <input type="checkbox" class="switch" data-bind="strips.imageBgOn">
+                </span>
+              </label>
+            </div>
+          </details>
+        </section>
+
+        <!-- Step 3: page & print -->
+        <section class="panel" data-panel="3">
+          <div class="panel-head">
+            <h2 data-i18n="step3">Seite &amp; Druck</h2>
+            <p data-i18n="pageIntro">Mehrere Abreißzettel auf einem A4-Blatt stapeln.</p>
+          </div>
+
+          <div class="field">
+            <label for="pRows" data-i18n="rowsPerPage">Reihen pro Seite</label>
+            <div class="with-action">
+              <div class="stepper">
+                <button type="button" data-step-input="pRows" data-delta="-1" data-i18n-aria="fewerRows" aria-label="Weniger Reihen">−</button>
+                <input id="pRows" type="number" min="1" max="20" data-bind="page.rows">
+                <button type="button" data-step-input="pRows" data-delta="1" data-i18n-aria="moreRows" aria-label="Mehr Reihen">+</button>
+              </div>
+              <button type="button" class="btn" data-action="fill" data-i18n="fillPage">Seite füllen</button>
+            </div>
+            <p class="help" id="fitHelp"></p>
+          </div>
+
+          <div class="field">
+            <label for="pPages" data-i18n="pages">Seiten</label>
+            <div class="stepper">
+              <button type="button" data-step-input="pPages" data-delta="-1" data-i18n-aria="fewerPages" aria-label="Weniger Seiten">−</button>
+              <input id="pPages" type="number" min="1" max="50" data-bind="page.pages">
+              <button type="button" data-step-input="pPages" data-delta="1" data-i18n-aria="morePages" aria-label="Mehr Seiten">+</button>
+            </div>
+          </div>
+
+          <label class="switch-row">
+            <span data-i18n="cutLines">Schnittlinien zwischen Reihen</span>
+            <input type="checkbox" class="switch" data-bind="page.cutLines">
+          </label>
+
+          <details class="advanced">
+            <summary><svg class="icon chev"><use href="#i-chevron"/></svg> <span data-i18n="advanced">Erweiterte Optionen</span></summary>
+            <div class="stack">
+              <div class="row2">
+                <div class="field">
+                  <label for="pMx" data-i18n="sideMargin">Rand links/rechts</label>
+                  <div class="unit"><input id="pMx" type="number" min="0" max="30" step="0.5" data-bind="page.marginX"><span>mm</span></div>
+                </div>
+                <div class="field">
+                  <label for="pMy" data-i18n="tbMargin">Rand oben/unten</label>
+                  <div class="unit"><input id="pMy" type="number" min="0" max="30" step="0.5" data-bind="page.marginY"><span>mm</span></div>
+                </div>
+                <div class="field">
+                  <label for="pGap" data-i18n="rowGap">Abstand zwischen Reihen</label>
+                  <div class="unit"><input id="pGap" type="number" min="0" max="40" step="0.5" data-bind="page.gap"><span>mm</span></div>
+                </div>
+              </div>
+              <label class="switch-row">
+                <span data-i18n="outline">Rahmen um jeden Abreißzettel</span>
+                <input type="checkbox" class="switch" data-bind="page.outline">
+              </label>
+            </div>
+          </details>
+
+          <div class="callout">
+            <h3 data-i18n="tipsTitle">Drucktipps</h3>
+            <ul>
+              <li data-i18n-html="tip1"></li>
+              <li data-i18n-html="tip2"></li>
+              <li data-i18n-html="tip3"></li>
+            </ul>
+          </div>
+        </section>
+      </div>
+
+      <div class="issues" id="issues" aria-live="polite"></div>
+
+      <footer class="editor-foot">
+        <button type="button" class="btn" data-action="back" data-i18n="back">Zurück</button>
+        <button type="button" class="btn primary" data-action="next">Weiter</button>
+      </footer>
+    </aside>
+
+    <main class="stage">
+      <div class="stage-bar">
+        <span class="stage-title" data-i18n="preview">Vorschau</span>
+        <div class="seg small" role="group" data-i18n-aria="zoom" aria-label="Zoom">
+          <button type="button" data-zoom="fit" data-i18n="zoomFit">Einpassen</button>
+          <button type="button" data-zoom="0.5">50%</button>
+          <button type="button" data-zoom="0.75">75%</button>
+          <button type="button" data-zoom="1">100%</button>
+        </div>
+      </div>
+      <div class="stage-scroll">
+        <div id="preview" data-i18n-aria="printPreview" aria-label="Druckvorschau"></div>
+      </div>
+    </main>
+  </div>
+
+  <script src="i18n.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
