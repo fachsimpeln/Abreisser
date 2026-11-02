@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">Abreisser</string>
+    <string name="language_system">System default</string>
+    <string name="language">Language</string>
+    <string name="print">Print</string>
+    <string name="share_pdf">Share PDF</string>
+    <string name="reset">Reset to defaults</string>
+    <string name="reset_confirm">Discard all changes and start over?</string>
+    <string name="cancel">Cancel</string>
+    <string name="more">More</string>
+    <string name="pdf_failed">Could not create the PDF.</string>
+    <string name="image_failed">This image could not be read.</string>
+    <string name="file_name">tear-off-notes</string>
+
+    <string name="step1">Main part</string>
+    <string name="step2">Strips</string>
+    <string name="step3">Page &amp; print</string>
+    <string name="preview">Preview</string>
+
+    <string name="main_intro">The notice above the tear-off strips.</string>
+    <string name="show_main">Show main part</string>
+    <string name="title">Title</string>
+    <string name="title_ph">e.g. Take what you need</string>
+    <string name="description">Description</string>
+    <string name="optional">optional</string>
+    <string name="alignment">Alignment</string>
+    <string name="align_left">Left</string>
+    <string name="align_center">Center</string>
+    <string name="align_right">Right</string>
+    <string name="align_justify">Justify</string>
+    <string name="image">Image</string>
+    <string name="advanced">Advanced options</string>
+    <string name="height">Height</string>
+    <string name="image_size">Image size</string>
+    <string name="title_size">Title size</string>
+    <string name="desc_size">Description size</string>
+    <string name="image_pos">Image position</string>
+    <string name="pos_left">Left</string>
+    <string name="pos_top">Top</string>
+    <string name="pos_right">Right</string>
+    <string name="recolor">White on transparent → black</string>
+    <string name="recolor_help">Makes white logo lettering visible on paper</string>
+    <string name="image_bg">Image background</string>
+
+    <string name="strips_intro">Each strip reads: image · text · QR code.</string>
+    <string name="content">Content</string>
+    <string name="mode_same">All identical</string>
+    <string name="mode_individual">Each different</string>
+    <string name="text">Text</string>
+    <string name="bold_sel">Bold selection</string>
+    <string name="italic_sel">Italic selection</string>
+    <string name="format_help">Select text and tap B or I to format part of it.</string>
+    <string name="bold_short">B</string>
+    <string name="italic_short">I</string>
+    <string name="qr_link">QR code link</string>
+    <string name="strips_per_row">Strips per row</string>
+    <string name="fewer">Fewer</string>
+    <string name="more_count">More</string>
+    <string name="fallback_help">Empty fields fall back to the shared values above.</string>
+    <string name="strip_length">Strip length</string>
+    <string name="inner_padding">Inner padding</string>
+    <string name="image_length">Image length</string>
+    <string name="qr_size">QR size</string>
+    <string name="font">Font</string>
+    <string name="font_sans">Sans-serif</string>
+    <string name="font_serif">Serif</string>
+    <string name="font_mono">Monospace</string>
+    <string name="font_hand">Handwriting</string>
+    <string name="font_size">Font size</string>
+    <string name="reading_dir">Reading direction</string>
+    <string name="dir_up">Bottom → top</string>
+    <string name="dir_down">Top → bottom</string>
+    <string name="whole_text">Whole text</string>
+    <string name="bold">Bold</string>
+    <string name="italic">Italic</string>
+    <string name="underline">Underline</string>
+    <string name="item_shared">Uses shared content</string>
+    <string name="item_text_ph">Uses shared text</string>
+    <string name="item_link_ph">Uses shared link</string>
+
+    <string name="page_intro">Stack several tear-off notes on one A4 sheet.</string>
+    <string name="rows_per_page">Rows per page</string>
+    <string name="fill_page">Fill page</string>
+    <string name="pages">Pages</string>
+    <string name="cut_lines">Cut lines between rows</string>
+    <string name="side_margin">Side margin</string>
+    <string name="tb_margin">Top/bottom margin</string>
+    <string name="row_gap">Gap between rows</string>
+    <string name="outline">Outline around each note</string>
+    <string name="tips_title">Printing tips</string>
+    <string name="tip1">Choose paper size A4 and keep the scale at 100 % – not “Fit to page”.</string>
+    <string name="tip2">“Save as PDF” in the print dialog creates a file you can print anywhere.</string>
+    <string name="tip3">Most printers can’t print the outer 3–5 mm – do a test print first.</string>
+
+    <string name="zoom_fit">Fit</string>
+    <string name="add_image">Add image</string>
+    <string name="replace_image">Replace</string>
+    <string name="remove">Remove</string>
+
+    <plurals name="summary">
+        <item quantity="one">%1$d × %2$d strips = %3$d per sheet · %4$d page</item>
+        <item quantity="other">%1$d × %2$d strips = %3$d per sheet · %4$d pages</item>
+    </plurals>
+    <plurals name="fit_help">
+        <item quantity="one">Each note is %2$s mm tall – up to %1$d row fits on A4.</item>
+        <item quantity="other">Each note is %2$s mm tall – up to %1$d rows fit on A4.</item>
+    </plurals>
+    <string name="strip_help">Each strip is %1$s mm wide (%2$s mm usable).</string>
+    <string name="qr_help">QR code %1$s mm, %2$s mm per dot.</string>
+    <string name="qr_limited">Limited by the strip width (set %1$s mm).</string>
+    <plurals name="issue_rows">
+        <item quantity="one">Only %d row fits on the page – the rest is cut off. Use “Fill page” or shorten the strips.</item>
+        <item quantity="other">Only %d rows fit on the page – the rest is cut off. Use “Fill page” or shorten the strips.</item>
+    </plurals>
+    <string name="issue_scheme">“%1$s” has no scheme – start the link with https:// so phones open it.</string>
+    <string name="issue_qr_small">QR code dots are very small and may not scan. Use fewer strips, a bigger QR size or a shorter link.</string>
+    <string name="issue_text">Strip text is cut off. Shorten it, lower the font size or make the strips longer.</string>
+    <string name="issue_head">The main part text does not fit. Increase its height or shorten the text.</string>
+
+    <string name="default_title">Take what you need</string>
+    <string name="default_desc">Pull off a strip – it is free!</string>
+    <string name="default_strip">A smile for you</string>
+</resources>

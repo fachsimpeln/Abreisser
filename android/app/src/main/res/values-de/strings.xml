@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="language_system">Systemsprache</string>
+    <string name="language">Sprache</string>
+    <string name="print">Drucken</string>
+    <string name="share_pdf">PDF teilen</string>
+    <string name="reset">Auf Standard zurücksetzen</string>
+    <string name="reset_confirm">Alle Änderungen verwerfen und neu beginnen?</string>
+    <string name="cancel">Abbrechen</string>
+    <string name="more">Mehr</string>
+    <string name="pdf_failed">Das PDF konnte nicht erstellt werden.</string>
+    <string name="image_failed">Dieses Bild konnte nicht gelesen werden.</string>
+    <string name="file_name">abreisszettel</string>
+
+    <string name="step1">Hauptteil</string>
+    <string name="step2">Streifen</string>
+    <string name="step3">Seite &amp; Druck</string>
+    <string name="preview">Vorschau</string>
+
+    <string name="main_intro">Der Aushang über den Abreißstreifen.</string>
+    <string name="show_main">Hauptteil anzeigen</string>
+    <string name="title">Titel</string>
+    <string name="title_ph">z. B. Nimm dir, was du brauchst</string>
+    <string name="description">Beschreibung</string>
+    <string name="optional">optional</string>
+    <string name="alignment">Ausrichtung</string>
+    <string name="align_left">Links</string>
+    <string name="align_center">Zentriert</string>
+    <string name="align_right">Rechts</string>
+    <string name="align_justify">Blocksatz</string>
+    <string name="image">Bild</string>
+    <string name="advanced">Erweiterte Optionen</string>
+    <string name="height">Höhe</string>
+    <string name="image_size">Bildgröße</string>
+    <string name="title_size">Titelgröße</string>
+    <string name="desc_size">Beschreibungsgröße</string>
+    <string name="image_pos">Bildposition</string>
+    <string name="pos_left">Links</string>
+    <string name="pos_top">Oben</string>
+    <string name="pos_right">Rechts</string>
+    <string name="recolor">Weiß auf transparent → schwarz</string>
+    <string name="recolor_help">Macht weiße Logo-Schrift auf Papier sichtbar</string>
+    <string name="image_bg">Bildhintergrund</string>
+
+    <string name="strips_intro">Jeder Streifen: Bild · Text · QR-Code.</string>
+    <string name="content">Inhalt</string>
+    <string name="mode_same">Alle gleich</string>
+    <string name="mode_individual">Jeder anders</string>
+    <string name="text">Text</string>
+    <string name="bold_sel">Auswahl fett</string>
+    <string name="italic_sel">Auswahl kursiv</string>
+    <string name="format_help">Text markieren und F bzw. K tippen, um Teile zu formatieren.</string>
+    <string name="bold_short">F</string>
+    <string name="italic_short">K</string>
+    <string name="qr_link">QR-Code-Link</string>
+    <string name="strips_per_row">Streifen pro Reihe</string>
+    <string name="fewer">Weniger</string>
+    <string name="more_count">Mehr</string>
+    <string name="fallback_help">Leere Felder übernehmen die gemeinsamen Werte von oben.</string>
+    <string name="strip_length">Streifenlänge</string>
+    <string name="inner_padding">Innenabstand</string>
+    <string name="image_length">Bildlänge</string>
+    <string name="qr_size">QR-Größe</string>
+    <string name="font">Schrift</string>
+    <string name="font_sans">Serifenlos</string>
+    <string name="font_serif">Serif</string>
+    <string name="font_mono">Monospace</string>
+    <string name="font_hand">Handschrift</string>
+    <string name="font_size">Schriftgröße</string>
+    <string name="reading_dir">Leserichtung</string>
+    <string name="dir_up">Unten → oben</string>
+    <string name="dir_down">Oben → unten</string>
+    <string name="whole_text">Ganzer Text</string>
+    <string name="bold">Fett</string>
+    <string name="italic">Kursiv</string>
+    <string name="underline">Unterstrichen</string>
+    <string name="item_shared">Nutzt gemeinsamen Inhalt</string>
+    <string name="item_text_ph">Nutzt gemeinsamen Text</string>
+    <string name="item_link_ph">Nutzt gemeinsamen Link</string>
+
+    <string name="page_intro">Mehrere Abreißzettel auf einem A4-Blatt stapeln.</string>
+    <string name="rows_per_page">Reihen pro Seite</string>
+    <string name="fill_page">Seite füllen</string>
+    <string name="pages">Seiten</string>
+    <string name="cut_lines">Schnittlinien zwischen Reihen</string>
+    <string name="side_margin">Rand links/rechts</string>
+    <string name="tb_margin">Rand oben/unten</string>
+    <string name="row_gap">Abstand zwischen Reihen</string>
+    <string name="outline">Rahmen um jeden Abreißzettel</string>
+    <string name="tips_title">Drucktipps</string>
+    <string name="tip1">Papierformat A4 wählen und die Skalierung bei 100 % lassen – nicht „An Seite anpassen“.</string>
+    <string name="tip2">„Als PDF speichern“ im Druckdialog erzeugt eine Datei, die du überall drucken kannst.</string>
+    <string name="tip3">Die meisten Drucker drucken die äußeren 3–5 mm nicht – vorher einen Testdruck machen.</string>
+
+    <string name="zoom_fit">Einpassen</string>
+    <string name="add_image">Bild hinzufügen</string>
+    <string name="replace_image">Ersetzen</string>
+    <string name="remove">Entfernen</string>
+
+    <plurals name="summary">
+        <item quantity="one">%1$d × %2$d Streifen = %3$d pro Blatt · %4$d Seite</item>
+        <item quantity="other">%1$d × %2$d Streifen = %3$d pro Blatt · %4$d Seiten</item>
+    </plurals>
+    <plurals name="fit_help">
+        <item quantity="one">Jeder Abreißzettel ist %2$s mm hoch – passt %1$d Reihe auf A4.</item>
+        <item quantity="other">Jeder Abreißzettel ist %2$s mm hoch – passen bis zu %1$d Reihen auf A4.</item>
+    </plurals>
+    <string name="strip_help">Jeder Streifen ist %1$s mm breit (%2$s mm nutzbar).</string>
+    <string name="qr_help">QR-Code %1$s mm, %2$s mm pro Punkt.</string>
+    <string name="qr_limited">Durch die Streifenbreite begrenzt (eingestellt: %1$s mm).</string>
+    <plurals name="issue_rows">
+        <item quantity="one">Nur %d Reihe passt auf die Seite – der Rest wird abgeschnitten. „Seite füllen“ nutzen oder die Streifen kürzen.</item>
+        <item quantity="other">Nur %d Reihen passen auf die Seite – der Rest wird abgeschnitten. „Seite füllen“ nutzen oder die Streifen kürzen.</item>
+    </plurals>
+    <string name="issue_scheme">„%1$s“ hat kein Schema – den Link mit https:// beginnen, damit Handys ihn öffnen.</string>
+    <string name="issue_qr_small">Die Punkte des QR-Codes sind sehr klein und lassen sich evtl. nicht scannen. Weniger Streifen, größerer QR-Code oder kürzerer Link.</string>
+    <string name="issue_text">Streifentext wird abgeschnitten. Text kürzen, Schrift verkleinern oder Streifen verlängern.</string>
+    <string name="issue_head">Der Text im Hauptteil passt nicht. Höhe vergrößern oder Text kürzen.</string>
+
+    <string name="default_title">Nimm dir, was du brauchst</string>
+    <string name="default_desc">Reiß einen Streifen ab – kostenlos!</string>
+    <string name="default_strip">Ein Lächeln für dich</string>
+</resources>
