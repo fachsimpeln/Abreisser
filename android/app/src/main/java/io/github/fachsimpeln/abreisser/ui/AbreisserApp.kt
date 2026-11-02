@@ -62,21 +62,21 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-private enum class Tab(val label: Int, val icon: Int) {
+private enum class Step(val label: Int, val icon: Int) {
     MAIN(R.string.step1, R.drawable.ic_header),
     STRIPS(R.string.step2, R.drawable.ic_strips),
     PAGE(R.string.step3, R.drawable.ic_page),
     PREVIEW(R.string.preview, R.drawable.ic_eye),
 }
 
-private val EDIT_TABS = listOf(Tab.MAIN, Tab.STRIPS, Tab.PAGE)
+private val EDIT_TABS = listOf(Step.MAIN, Step.STRIPS, Step.PAGE)
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AbreisserApp(vm: FlyerViewModel) {
     val state = vm.state
     val analysis = remember(state, vm.imageVersion) { vm.renderer.analyze(state) }
-    var tab by rememberSaveable { mutableStateOf(Tab.MAIN) }
+    var tab by rememberSaveable { mutableStateOf(Step.MAIN) }
     var confirmReset by remember { mutableStateOf(false) }
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
@@ -86,7 +86,7 @@ fun AbreisserApp(vm: FlyerViewModel) {
 
     BoxWithConstraints(Modifier.fillMaxSize()) {
         val wide = maxWidth >= 840.dp
-        val shown = if (wide && tab == Tab.PREVIEW) Tab.MAIN else tab
+        val shown = if (wide && tab == Step.PREVIEW) Step.MAIN else tab
 
         Scaffold(
             topBar = {
@@ -131,7 +131,7 @@ fun AbreisserApp(vm: FlyerViewModel) {
             bottomBar = {
                 if (!wide) {
                     NavigationBar {
-                        Tab.entries.forEach { t ->
+                        Step.entries.forEach { t ->
                             NavigationBarItem(
                                 selected = shown == t,
                                 onClick = { tab = t },
@@ -163,7 +163,7 @@ fun AbreisserApp(vm: FlyerViewModel) {
                     VerticalDivider()
                     PreviewPane(state, vm.renderer, vm.imageVersion, Modifier.weight(1f))
                 }
-            } else if (shown == Tab.PREVIEW) {
+            } else if (shown == Step.PREVIEW) {
                 Column(body) {
                     IssueList(analysis, Modifier.padding(start = 16.dp, end = 16.dp, top = 12.dp))
                     PreviewPane(state, vm.renderer, vm.imageVersion, Modifier.weight(1f))
@@ -189,11 +189,11 @@ fun AbreisserApp(vm: FlyerViewModel) {
 }
 
 @Composable
-private fun Editor(vm: FlyerViewModel, tab: Tab, analysis: Analysis, modifier: Modifier) {
+private fun Editor(vm: FlyerViewModel, tab: Step, analysis: Analysis, modifier: Modifier) {
     // A separate scroll position per step
     val scroll = when (tab) {
-        Tab.MAIN -> rememberScrollState()
-        Tab.STRIPS -> rememberScrollState()
+        Step.MAIN -> rememberScrollState()
+        Step.STRIPS -> rememberScrollState()
         else -> rememberScrollState()
     }
     Column(
@@ -204,8 +204,8 @@ private fun Editor(vm: FlyerViewModel, tab: Tab, analysis: Analysis, modifier: M
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         when (tab) {
-            Tab.MAIN -> MainPartPanel(vm)
-            Tab.STRIPS -> StripsPanel(vm, analysis)
+            Step.MAIN -> MainPartPanel(vm)
+            Step.STRIPS -> StripsPanel(vm, analysis)
             else -> PagePanel(vm, analysis)
         }
         IssueList(analysis)
